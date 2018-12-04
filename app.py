@@ -47,3 +47,21 @@ def add_pet_form():
         return redirect('/')
     else:
         return render_template('pet_add_form.html', form=form)
+
+
+@app.route('/<int:pid>', methods=['GET', 'POST'])
+def display_data_for_one_pet(pid):
+    pet = Pet.query.get_or_404(pid)
+
+    form = AddPetForm()
+
+    if form.validate_on_submit():
+        pet.photo_url = form.photo_url.data
+        pet.notes = form.notes.data
+        pet.available = form.available.data
+
+        db.session.commit()
+
+        return redirect(f'/{pid}')
+    else:
+        return render_template('single_pet.html', pet=pet)

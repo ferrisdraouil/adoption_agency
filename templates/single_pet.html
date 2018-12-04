@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block title %} {{ pet.name }}'s Page {% endblock %}
+{%block body %}
+<div>{{ pet.name.data }}</div>
+<div><img src="{{ pet.photo_url.data }}" alt=""></div>
+<div>{{ pet.name.data }} is {{ pet.age.data }} years old.</div>
+<div>They are a {{ pet.species.data }}</div>
+<form method="POST">
+
+  <p>
+    {{ pet.photo_url.label }} {{ pet.photo_url }}
+    {{ pet.notes.label }} {{ pet.notes }}
+    {{ pet.available.label }} {{ pet.available }}
+  </p>
+
+
+
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
