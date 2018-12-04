@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+Adoption Agency
+{% endblock %}
+
+{%block body%}
+  <div>
+    
+    {% for pet in pets %}
+    <div>
+      <h3>{{ pet.name }}</h3> <img src="{{ pet.photo_url }}" alt=""> <p>Available = {{ pet.available }}</p>
+    </div>
+    {% endfor %}
+  </div>
+{%endblock%}
+
+<!-- Pass in pets from DB -->
