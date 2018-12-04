@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension== only for app.py
 from wtforms.validators import InputRequired, Optional, URL, NumberRange
-from wtforms import StringField, IntegerField, SelectField
+from wtforms import StringField, IntegerField, SelectField, BooleanField
 
 
 class AddPetForm(FlaskForm):
@@ -17,3 +17,11 @@ class AddPetForm(FlaskForm):
         "Age", validators=[InputRequired(),
                            NumberRange(min=1, max=29)])
     notes = StringField("Notes", validators=[Optional()])
+
+
+class EditPetForm(FlaskForm):
+    """ Edit a pet form """
+
+    photo_url = StringField("Photo URL", validators=[Optional(), URL()])
+    notes = StringField("Notes", validators=[Optional()])
+    available = BooleanField("Available")

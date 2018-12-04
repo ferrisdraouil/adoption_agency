@@ -1,6 +1,7 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, flash
 from models import db, connect_db, Pet
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
+from secrets import PETFINDER_API_KEY, PETFINDER_API_SECRET
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///adoption_agency'
@@ -44,6 +45,7 @@ def add_pet_form():
             notes=notes)
         db.session.add(pet)
         db.session.commit()
+        flash(f'{name} is added!')
         return redirect('/')
     else:
         return render_template('pet_add_form.html', form=form)
@@ -51,17 +53,27 @@ def add_pet_form():
 
 @app.route('/<int:pid>', methods=['GET', 'POST'])
 def display_data_for_one_pet(pid):
+    """diaplay and edit a pet """
+
     pet = Pet.query.get_or_404(pid)
 
-    form = AddPetForm()
+    form = EditPetForm(obj=pet)
+    import pdb
+    pdb.set_trace()
 
     if form.validate_on_submit():
-        pet.photo_url = form.photo_url.data
-        pet.notes = form.notes.data
-        pet.available = form.available.data
+        pet.photo_url = form.data.get('photo_url')
+        pet.notes = form.data.get('notes')
+        pet.available = form.data.get('available', False)
 
         db.session.commit()
 
         return redirect(f'/{pid}')
     else:
-        return render_template('single_pet.html', pet=pet)
+        return render_template('single_pet.html', pet=pet, form=form)
+
+
+# def request_a_random_pet():
+#     resp = requests.get(
+
+#     )

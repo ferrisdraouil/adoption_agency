@@ -4,13 +4,27 @@ Adoption Agency
 {% endblock %}
 
 {%block body%}
+<a href="/add"> Add a pet</a>
   <div>
+    <h2>Available Pets</h2>
     
     {% for pet in pets %}
+      {% if pet.available %}
     <div>
       <h3>{{ pet.name }}</h3> <img src="{{ pet.photo_url }}" alt=""> <p>Available = {{ pet.available }}</p>
     </div>
+    {% endif %}
     {% endfor %}
+
+    <h2>Unavailable Pets</h2>
+    {% for pet in pets %}
+      {% if not pet.available %}
+    <div>
+      <h3>{{ pet.name }}</h3> <img src="{{ pet.photo_url }}" alt=""> <p>Available = {{ pet.available }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+
   </div>
 {%endblock%}
 

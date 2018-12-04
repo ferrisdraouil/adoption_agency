@@ -1,19 +1,20 @@
 {% extends 'base.html' %} {% block title %} {{ pet.name }}'s Page {% endblock %}
 {%block body %}
-<div>{{ pet.name.data }}</div>
-<div><img src="{{ pet.photo_url.data }}" alt=""></div>
-<div>{{ pet.name.data }} is {{ pet.age.data }} years old.</div>
-<div>They are a {{ pet.species.data }}</div>
+<div>{{ pet.name }}</div>
+<div><img src="{{ pet.photo_url }}" alt=""></div>
+<div>{{ pet.name }} is {{ pet.age }} years old.</div>
+<div>They are a {{ pet.species }}</div>
 <form method="POST">
-
-  <p>
-    {{ pet.photo_url.label }} {{ pet.photo_url }}
-    {{ pet.notes.label }} {{ pet.notes }}
-    {{ pet.available.label }} {{ pet.available }}
-  </p>
-
-
-
-  <button type="submit">Submit</button>
-</form>
+    {{ form.hidden_tag() }}
+  
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <p>
+      {{ field.label }} {{ field }}
+  
+      {% for error in field.errors %} {{ error }} {% endfor %}
+    </p>
+    {% endfor %}
+  
+    <button type="submit">Submit</button>
+  </form>
 {% endblock %}
