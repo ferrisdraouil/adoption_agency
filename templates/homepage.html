@@ -7,7 +7,7 @@ Adoption Agency
 <a href="/add"> Add a pet</a>
   <div>
     <h2>Available Pets</h2>
-    
+
     {% for pet in pets %}
       {% if pet.available %}
     <div>
@@ -26,6 +26,19 @@ Adoption Agency
     {% endfor %}
 
   </div>
+
+
+  <section>
+    <h2>Random Petfinder Pet</h2>
+    <div>
+     <p> {{name}} is {{age}} years old</p>
+      <img src="{{ photo_url}}" alt="">
+    </div>
+
+  </section>
+
+
+
 {%endblock%}
 
 <!-- Pass in pets from DB -->
